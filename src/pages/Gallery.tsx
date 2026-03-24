@@ -1,4 +1,6 @@
+import { useState } from "react";
 import AnimatedSection from "@/components/AnimatedSection";
+import Lightbox from "@/components/Lightbox";
 import gallery1 from "@/assets/gallery1.jpg";
 import gallery2 from "@/assets/gallery2.jpg";
 import gallery3 from "@/assets/gallery3.jpg";
@@ -19,39 +21,54 @@ const images = [
   { src: room4, label: "Superior Apartment" },
 ];
 
-const Gallery = () => (
-  <div className="pt-16">
-    <section className="section-padding">
-      <div className="container-max">
-        <AnimatedSection className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground">Gallery</h1>
-          <p className="text-muted-foreground mt-3">Explore our apartments and surroundings</p>
-        </AnimatedSection>
+const Gallery = () => {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {images.map((img, i) => (
-            <AnimatedSection key={i} delay={i * 0.05}>
-              <div className="group overflow-hidden rounded-xl aspect-[4/3] relative">
-                <img
-                  src={img.src}
-                  alt={img.label}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                  width={800}
-                  height={600}
-                />
-                <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/20 transition-colors duration-300 flex items-end">
-                  <span className="text-background font-medium p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {img.label}
-                  </span>
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
+  return (
+    <div className="pt-16">
+      <section className="section-padding">
+        <div className="container-max">
+          <AnimatedSection className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground">Gallery</h1>
+            <p className="text-muted-foreground mt-3">Explore our apartments and surroundings</p>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {images.map((img, i) => (
+              <AnimatedSection key={i} delay={i * 0.05}>
+                <button
+                  onClick={() => setLightboxIndex(i)}
+                  className="group overflow-hidden rounded-xl aspect-[4/3] relative w-full cursor-pointer"
+                >
+                  <img
+                    src={img.src}
+                    alt={img.label}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    width={800}
+                    height={600}
+                  />
+                  <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/20 transition-colors duration-300 flex items-end">
+                    <span className="text-background font-medium p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      {img.label}
+                    </span>
+                  </div>
+                </button>
+              </AnimatedSection>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-  </div>
-);
+      </section>
+
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={images}
+          currentIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+        />
+      )}
+    </div>
+  );
+};
 
 export default Gallery;
