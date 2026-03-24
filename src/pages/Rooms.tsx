@@ -5,7 +5,10 @@ import AnimatedSection from "@/components/AnimatedSection";
 import { Users, Maximize } from "lucide-react";
 import { useBooking } from "@/context/BookingContext";
 
-const Rooms = () => (
+const Rooms = () => {
+  const { openBooking } = useBooking();
+
+  return (
   <div className="pt-16">
     <section className="section-padding bg-muted/50">
       <div className="container-max">
