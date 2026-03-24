@@ -44,8 +44,8 @@ const BookingModal = () => {
     toast.success("Booking request submitted! We'll confirm your reservation shortly.");
     closeBooking();
     setSelectedRoom("");
-    setCheckIn("");
-    setCheckOut("");
+    setCheckIn(undefined);
+    setCheckOut(undefined);
     setGuests("2");
     setPaymentMethod("arrival");
     setName("");
