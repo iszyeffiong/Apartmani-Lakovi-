@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
-import { X, CalendarIcon, Users, CreditCard, Lock } from "lucide-react";
+import { X, Users, CreditCard, Lock, CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { cn } from "@/lib/utils";
 import { rooms } from "@/data/rooms";
 import { useBooking } from "@/context/BookingContext";
 import { toast } from "sonner";
@@ -10,8 +14,8 @@ import { toast } from "sonner";
 const BookingModal = () => {
   const { isOpen, preselectedRoom, closeBooking } = useBooking();
   const [selectedRoom, setSelectedRoom] = useState("");
-  const [checkIn, setCheckIn] = useState("");
-  const [checkOut, setCheckOut] = useState("");
+  const [checkIn, setCheckIn] = useState<Date | undefined>();
+  const [checkOut, setCheckOut] = useState<Date | undefined>();
   const [guests, setGuests] = useState("2");
   const [paymentMethod, setPaymentMethod] = useState("arrival");
   const [name, setName] = useState("");
@@ -40,8 +44,8 @@ const BookingModal = () => {
     toast.success("Booking request submitted! We'll confirm your reservation shortly.");
     closeBooking();
     setSelectedRoom("");
-    setCheckIn("");
-    setCheckOut("");
+    setCheckIn(undefined);
+    setCheckOut(undefined);
     setGuests("2");
     setPaymentMethod("arrival");
     setName("");
@@ -105,33 +109,60 @@ const BookingModal = () => {
                 )}
               </div>
 
-              {/* Dates */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Check-in</label>
-                  <div className="relative">
-                    <CalendarIcon size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                    <input
-                      type="date"
-                      required
-                      value={checkIn}
-                      onChange={(e) => setCheckIn(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                    />
-                  </div>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "w-full justify-start text-left font-normal",
+                          !checkIn && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {checkIn ? format(checkIn, "PPP") : <span>Pick date</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={checkIn}
+                        onSelect={setCheckIn}
+                        disabled={(date) => date < new Date()}
+                        initialFocus
+                        className={cn("p-3 pointer-events-auto")}
+                      />
+                    </PopoverContent>
+                  </Popover>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Check-out</label>
-                  <div className="relative">
-                    <CalendarIcon size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                    <input
-                      type="date"
-                      required
-                      value={checkOut}
-                      onChange={(e) => setCheckOut(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                    />
-                  </div>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "w-full justify-start text-left font-normal",
+                          !checkOut && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {checkOut ? format(checkOut, "PPP") : <span>Pick date</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={checkOut}
+                        onSelect={setCheckOut}
+                        disabled={(date) => date < (checkIn || new Date())}
+                        initialFocus
+                        className={cn("p-3 pointer-events-auto")}
+                      />
+                    </PopoverContent>
+                  </Popover>
                 </div>
               </div>
 
