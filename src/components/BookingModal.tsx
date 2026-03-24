@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { X, CalendarIcon, Users, CreditCard } from "lucide-react";
+import { X, CalendarIcon, Users, CreditCard, Lock } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -201,8 +201,55 @@ const BookingModal = () => {
                 </RadioGroup>
               </div>
 
+              {/* Card Details (shown when Pay Now selected) */}
+              {paymentMethod === "now" && (
+                <div className="space-y-3 p-4 rounded-lg border border-primary/20 bg-primary/5">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Lock size={14} className="text-primary" />
+                    <span className="text-sm font-medium text-foreground">Secure Payment</span>
+                    <div className="ml-auto flex items-center gap-1.5">
+                      <span className="text-[10px] font-semibold bg-[#635BFF] text-white px-1.5 py-0.5 rounded">stripe</span>
+                      <span className="text-[10px] font-semibold bg-[#EB001B] text-white px-1.5 py-0.5 rounded">mc</span>
+                      <span className="text-[10px] font-semibold bg-[#1A1F71] text-white px-1.5 py-0.5 rounded">visa</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-xs font-medium text-foreground mb-1 block">Card Number</label>
+                    <input
+                      type="text"
+                      placeholder="4242 4242 4242 4242"
+                      maxLength={19}
+                      className="w-full px-3 py-2 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring font-mono tracking-wider"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs font-medium text-foreground mb-1 block">Expiry</label>
+                      <input
+                        type="text"
+                        placeholder="MM / YY"
+                        maxLength={7}
+                        className="w-full px-3 py-2 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring font-mono"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs font-medium text-foreground mb-1 block">CVC</label>
+                      <input
+                        type="text"
+                        placeholder="123"
+                        maxLength={4}
+                        className="w-full px-3 py-2 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring font-mono"
+                      />
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground flex items-center gap-1">
+                    <Lock size={10} /> Your payment info is encrypted and secure
+                  </p>
+                </div>
+              )}
+
               <Button type="submit" size="lg" className="w-full text-base">
-                Confirm Booking
+                {paymentMethod === "now" ? "Pay & Confirm Booking" : "Confirm Booking"}
               </Button>
               <p className="text-xs text-muted-foreground text-center">
                 Free cancellation up to 48 hours before check-in
