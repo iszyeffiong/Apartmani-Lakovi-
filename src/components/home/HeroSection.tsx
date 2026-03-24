@@ -24,10 +24,10 @@ const HeroSection = () => {
           Your peaceful retreat on the Adriatic coast. Experience comfort, beauty, and unforgettable hospitality.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" className="text-base" onClick={() => openBooking()}>
+          <Button size="lg" className="text-base font-medium" onClick={() => openBooking()}>
             Book Now
           </Button>
-          <Button asChild size="lg" variant="outline" className="text-base border-background/50 text-background hover:bg-background/10">
+          <Button asChild size="lg" variant="outline" className="text-base font-medium border-white/50 text-white hover:bg-white/10 hover:text-white transition-colors duration-300">
             <Link to="/rooms">View Rooms</Link>
           </Button>
         </div>
