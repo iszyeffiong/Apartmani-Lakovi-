@@ -94,7 +94,6 @@
     @apply backdrop-blur-md border shadow-lg;
     border-color: hsl(var(--border) / 0.2);
   }
-  }
 
   .section-padding {
     @apply px-4 sm:px-6 lg:px-8 py-16 md:py-24;
