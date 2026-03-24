@@ -25,6 +25,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <BookingProvider>
+          <ScrollToTop />
           <Navbar />
           <BookingModal />
           <main>
