@@ -14,8 +14,8 @@ import { toast } from "sonner";
 const BookingModal = () => {
   const { isOpen, preselectedRoom, closeBooking } = useBooking();
   const [selectedRoom, setSelectedRoom] = useState("");
-  const [checkIn, setCheckIn] = useState("");
-  const [checkOut, setCheckOut] = useState("");
+  const [checkIn, setCheckIn] = useState<Date | undefined>();
+  const [checkOut, setCheckOut] = useState<Date | undefined>();
   const [guests, setGuests] = useState("2");
   const [paymentMethod, setPaymentMethod] = useState("arrival");
   const [name, setName] = useState("");
