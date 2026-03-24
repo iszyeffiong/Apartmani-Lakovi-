@@ -3,10 +3,12 @@ import { rooms } from "@/data/rooms";
 import { Button } from "@/components/ui/button";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Users, Maximize, Check, ArrowLeft } from "lucide-react";
+import { useBooking } from "@/context/BookingContext";
 
 const RoomDetails = () => {
   const { id } = useParams();
   const room = rooms.find((r) => r.id === id);
+  const { openBooking } = useBooking();
 
   if (!room) return <Navigate to="/rooms" replace />;
 
@@ -59,8 +61,8 @@ const RoomDetails = () => {
                   <span className="text-3xl font-bold text-primary">€{room.price}</span>
                   <span className="text-muted-foreground text-sm"> / night</span>
                 </div>
-                <Button asChild className="w-full" size="lg">
-                  <Link to="/contact">Book This Room</Link>
+                <Button className="w-full" size="lg" onClick={() => openBooking(room.id)}>
+                  Book This Room
                 </Button>
                 <p className="text-xs text-muted-foreground text-center mt-3">
                   Free cancellation up to 48 hours before check-in
