@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { rooms } from "@/data/rooms";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Users, Maximize } from "lucide-react";
+import { useBooking } from "@/context/BookingContext";
 
 const Rooms = () => (
   <div className="pt-16">
