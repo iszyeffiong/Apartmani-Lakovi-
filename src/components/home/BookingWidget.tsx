@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { CalendarIcon, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useBooking } from "@/context/BookingContext";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const BookingWidget = () => {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState("2");
+  const { openBooking } = useBooking();
 
   return (
     <AnimatedSection className="section-padding">
@@ -52,7 +54,9 @@ const BookingWidget = () => {
                 </select>
               </div>
             </div>
-            <Button size="lg" className="w-full">Check Availability</Button>
+            <Button size="lg" className="w-full" onClick={() => openBooking()}>
+              Check Availability
+            </Button>
           </div>
         </div>
       </div>

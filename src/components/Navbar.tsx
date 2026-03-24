@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useBooking } from "@/context/BookingContext";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -14,6 +15,7 @@ const navLinks = [
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const { openBooking } = useBooking();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-card">
@@ -35,9 +37,7 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          <Button asChild size="sm">
-            <Link to="/contact">Book Now</Link>
-          </Button>
+          <Button size="sm" onClick={() => openBooking()}>Book Now</Button>
         </div>
 
         {/* Mobile toggle */}
@@ -61,8 +61,8 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          <Button asChild size="sm" className="w-full mt-2">
-            <Link to="/contact" onClick={() => setOpen(false)}>Book Now</Link>
+          <Button size="sm" className="w-full mt-2" onClick={() => { setOpen(false); openBooking(); }}>
+            Book Now
           </Button>
         </div>
       )}

@@ -3,8 +3,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { BookingProvider } from "@/context/BookingContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BookingModal from "@/components/BookingModal";
 import Index from "./pages/Index";
 import Rooms from "./pages/Rooms";
 import RoomDetails from "./pages/RoomDetails";
@@ -21,19 +23,22 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Navbar />
-        <main>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/rooms" element={<Rooms />} />
-            <Route path="/rooms/:id" element={<RoomDetails />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
+        <BookingProvider>
+          <Navbar />
+          <BookingModal />
+          <main>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/rooms" element={<Rooms />} />
+              <Route path="/rooms/:id" element={<RoomDetails />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          <Footer />
+        </BookingProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
