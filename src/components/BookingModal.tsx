@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { X, CalendarIcon, Users, CreditCard } from "lucide-react";
+import { X, CalendarIcon, Users, CreditCard, Lock } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
