@@ -27,7 +27,7 @@ const HeroSection = () => {
           <Button size="lg" className="text-base font-medium" onClick={() => openBooking()}>
             Book Now
           </Button>
-          <Button asChild size="lg" variant="outline" className="text-base font-medium border-white/50 text-white hover:bg-white/10 hover:text-white transition-colors duration-300">
+          <Button asChild size="lg" className="text-base font-medium bg-black text-white hover:bg-black/80 transition-all duration-300">
             <Link to="/rooms">View Rooms</Link>
           </Button>
         </div>
