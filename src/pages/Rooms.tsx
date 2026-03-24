@@ -30,9 +30,13 @@ const Rooms = () => {
                       <span className="text-primary font-bold text-lg">€{room.price}<span className="text-xs text-muted-foreground font-normal">/night</span></span>
                     </div>
                     <p className="text-sm text-muted-foreground mb-4">{room.description}</p>
-                    <div className="flex gap-4 text-sm text-muted-foreground mb-4">
+                    <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-4">
                       <span className="flex items-center gap-1"><Users size={14} /> {room.guests} guests</span>
                       <span className="flex items-center gap-1"><Maximize size={14} /> {room.size} m²</span>
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
+                        <span className="h-1.5 w-1.5 rounded-full bg-primary"></span>
+                        {room.available} available
+                      </span>
                     </div>
                     <div className="flex flex-wrap gap-2 mb-4">
                       {room.features.slice(0, 4).map((f) => (

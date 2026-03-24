@@ -98,13 +98,13 @@ const BookingModal = () => {
                   <option value="">Choose a room...</option>
                   {rooms.map((room) => (
                     <option key={room.id} value={room.id}>
-                      {room.name} — €{room.price}/night
+                      {room.name} - €{room.price}/night
                     </option>
                   ))}
                 </select>
                 {selectedRoomData && (
                   <p className="text-xs text-muted-foreground mt-1.5">
-                    Up to {selectedRoomData.guests} guests · {selectedRoomData.size} m²
+                    Up to {selectedRoomData.guests} guests · {selectedRoomData.size} m² · {selectedRoomData.available} available
                   </p>
                 )}
               </div>
@@ -219,7 +219,7 @@ const BookingModal = () => {
                     <RadioGroupItem value="arrival" id="pay-arrival" />
                     <div>
                       <span className="text-sm font-medium text-foreground">Pay on Arrival</span>
-                      <p className="text-xs text-muted-foreground">Pay when you check in — no upfront charge</p>
+                      <p className="text-xs text-muted-foreground">Pay when you check in - no upfront charge</p>
                     </div>
                   </label>
                   <label className="flex items-center gap-3 p-3 rounded-lg border border-input hover:border-primary/40 transition-colors cursor-pointer">

@@ -10,7 +10,7 @@ const HeroSection = () => {
     <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
       <img
         src={heroImg}
-        alt="Apartmani Laković — luxury Mediterranean apartments"
+        alt="Apartmani Laković - luxury Mediterranean apartments"
         className="absolute inset-0 w-full h-full object-cover"
         width={1920}
         height={1080}

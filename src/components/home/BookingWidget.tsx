@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { CalendarIcon, Users } from "lucide-react";
+import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useBooking } from "@/context/BookingContext";
 import AnimatedSection from "@/components/AnimatedSection";
+import { cn } from "@/lib/utils";
 
 const BookingWidget = () => {
-  const [checkIn, setCheckIn] = useState("");
-  const [checkOut, setCheckOut] = useState("");
+  const [checkIn, setCheckIn] = useState<Date | undefined>();
+  const [checkOut, setCheckOut] = useState<Date | undefined>();
   const [guests, setGuests] = useState("2");
   const { openBooking } = useBooking();
 
@@ -17,27 +21,57 @@ const BookingWidget = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
             <div>
               <label className="text-sm font-medium text-muted-foreground mb-2 block">Check-in</label>
-              <div className="relative">
-                <CalendarIcon size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                <input
-                  type="date"
-                  value={checkIn}
-                  onChange={(e) => setCheckIn(e.target.value)}
-                  className="w-full pl-10 pr-3 py-2.5 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                />
-              </div>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !checkIn && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {checkIn ? format(checkIn, "MMM dd, yyyy") : <span>Pick date</span>}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={checkIn}
+                    onSelect={setCheckIn}
+                    disabled={(date) => date < new Date()}
+                    initialFocus
+                    className="p-3 pointer-events-auto"
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
             <div>
               <label className="text-sm font-medium text-muted-foreground mb-2 block">Check-out</label>
-              <div className="relative">
-                <CalendarIcon size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                <input
-                  type="date"
-                  value={checkOut}
-                  onChange={(e) => setCheckOut(e.target.value)}
-                  className="w-full pl-10 pr-3 py-2.5 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                />
-              </div>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !checkOut && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {checkOut ? format(checkOut, "MMM dd, yyyy") : <span>Pick date</span>}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={checkOut}
+                    onSelect={setCheckOut}
+                    disabled={(date) => date < (checkIn || new Date())}
+                    initialFocus
+                    className="p-3 pointer-events-auto"
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
             <div>
               <label className="text-sm font-medium text-muted-foreground mb-2 block">Guests</label>

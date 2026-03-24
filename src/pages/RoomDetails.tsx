@@ -39,9 +39,13 @@ const RoomDetails = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <AnimatedSection className="lg:col-span-2">
               <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{room.name}</h1>
-              <div className="flex gap-6 text-sm text-muted-foreground mb-6">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-sm text-muted-foreground mb-6">
                 <span className="flex items-center gap-1"><Users size={16} /> Up to {room.guests} guests</span>
                 <span className="flex items-center gap-1"><Maximize size={16} /> {room.size} m²</span>
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary font-medium">
+                  <span className="h-2 w-2 rounded-full bg-primary"></span>
+                  {room.available} available
+                </span>
               </div>
               <p className="text-muted-foreground leading-relaxed mb-8">{room.longDescription}</p>
 

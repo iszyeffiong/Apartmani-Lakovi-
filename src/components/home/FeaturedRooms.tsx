@@ -16,7 +16,7 @@ const FeaturedRooms = () => (
           <AnimatedSection key={room.id} delay={i * 0.1}>
             <Link to={`/rooms/${room.id}`} className="group block">
               <div className="bg-card rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
-                <div className="overflow-hidden h-56">
+                <div className="relative overflow-hidden h-56">
                   <img
                     src={room.image}
                     alt={room.name}
@@ -25,6 +25,10 @@ const FeaturedRooms = () => (
                     width={800}
                     height={600}
                   />
+                  <div className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/90 text-white text-xs font-medium">
+                    <span className="h-2 w-2 rounded-full bg-white"></span>
+                    {room.available} available
+                  </div>
                 </div>
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-2">

@@ -13,7 +13,7 @@ const About = () => (
             <p className="text-muted-foreground leading-relaxed mb-4">
               For over a decade, the Laković family has welcomed guests from around the world to our
               beautiful apartments on the Adriatic coast. What started as a small family guesthouse has
-              grown into a collection of modern, stylish apartments — but our commitment to personal,
+              grown into a collection of modern, stylish apartments - but our commitment to personal,
               warm hospitality remains unchanged.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-4">
@@ -25,7 +25,7 @@ const About = () => (
             <p className="text-muted-foreground leading-relaxed">
               Located in the heart of Budva, our apartments offer easy access to beaches, restaurants,
               historical sites, and the vibrant nightlife. Whether you're here to relax, explore, or
-              celebrate — we're here to ensure you have an unforgettable experience.
+              celebrate - we're here to ensure you have an unforgettable experience.
             </p>
           </AnimatedSection>
           <AnimatedSection delay={0.2}>
