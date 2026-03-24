@@ -39,9 +39,14 @@ const Rooms = () => {
                       <span key={f} className="text-xs bg-muted px-2.5 py-1 rounded-full text-muted-foreground">{f}</span>
                     ))}
                   </div>
-                  <Button asChild>
-                    <Link to={`/rooms/${room.id}`}>View Details</Link>
-                  </Button>
+                  <div className="flex gap-3">
+                    <Button asChild variant="outline" className="flex-1">
+                      <Link to={`/rooms/${room.id}`}>View Details</Link>
+                    </Button>
+                    <Button className="flex-1" onClick={() => openBooking(room.id)}>
+                      Book Now
+                    </Button>
+                  </div>
                 </div>
               </div>
             </AnimatedSection>
