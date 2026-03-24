@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
-import { X, CalendarIcon, Users, CreditCard, Lock } from "lucide-react";
+import { X, Users, CreditCard, Lock, CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { cn } from "@/lib/utils";
 import { rooms } from "@/data/rooms";
 import { useBooking } from "@/context/BookingContext";
 import { toast } from "sonner";
