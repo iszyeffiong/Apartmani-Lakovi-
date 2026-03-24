@@ -15,7 +15,7 @@ const HeroSection = () => {
         width={1920}
         height={1080}
       />
-      <div className="absolute inset-0 bg-foreground/40" />
+      <div className="absolute inset-0 bg-black/60" />
       <div className="relative z-10 text-center px-4 max-w-3xl">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-background mb-4 leading-tight">
           Apartmani Laković
