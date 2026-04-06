@@ -17,6 +17,7 @@ import Gallery from "./pages/Gallery";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import SaleBanner from "@/components/SaleBanner";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,7 @@ const App = () => (
             </main>
             <Footer />
             <WhatsAppButton />
+            <SaleBanner />
           </BookingProvider>
         </BrowserRouter>
       </ThemeProvider>
