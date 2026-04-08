@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { MessageCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/context/LanguageContext";
 
 const WhatsAppButton = () => {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleWhatsAppClick = () => {
@@ -35,7 +37,7 @@ const WhatsAppButton = () => {
                 <div className="flex items-center justify-center w-12 h-12 rounded-full bg-[#25D366]/10">
                   <MessageCircle size={24} className="text-[#25D366]" fill="#25D366" strokeWidth={0} />
                 </div>
-                <h3 className="text-lg font-semibold text-foreground">Connect with us</h3>
+                <h3 className="text-lg font-semibold text-foreground">{t("whatsapp_connect_title")}</h3>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
@@ -46,14 +48,14 @@ const WhatsAppButton = () => {
               </button>
             </div>
             <p className="text-muted-foreground mb-6">
-              Send us a message on WhatsApp and our team will respond to your inquiry as soon as possible. We're here to help with all your booking questions!
+              {t("whatsapp_connect_text")}
             </p>
             <div className="flex gap-3">
               <Button variant="outline" onClick={() => setIsOpen(false)} className="flex-1">
-                Cancel
+                {t("whatsapp_cancel")}
               </Button>
               <Button onClick={handleWhatsAppClick} className="flex-1 bg-[#25D366] hover:bg-[#20BA5E]">
-                Open WhatsApp
+                {t("whatsapp_open")}
               </Button>
             </div>
           </div>

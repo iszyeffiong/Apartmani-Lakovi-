@@ -3,11 +3,13 @@ import { X, Flame, ArrowRight, Mail, Instagram, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useBooking } from "@/context/BookingContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 const SaleBanner = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [percentage, setPercentage] = useState(80);
+  const { t } = useLanguage();
   
   const { openBooking } = useBooking();
 
@@ -64,7 +66,7 @@ const SaleBanner = () => {
             className="absolute -top-12 left-1/2 -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-t-2xl shadow-xl flex items-center gap-2 font-bold text-sm cursor-pointer hover:bg-primary/90 transition-colors z-20 pointer-events-auto"
           >
             <Flame className="w-4 h-4 text-orange-200 animate-pulse" />
-            <span>FROM 999€ NOW!</span>
+            <span>{t("sale_now")}</span>
           </motion.button>
         )}
 
@@ -98,11 +100,11 @@ const SaleBanner = () => {
               <div className="flex flex-col">
                 <div className="flex items-center gap-2 mb-1">
                   <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/10 px-2 py-0.5 rounded-full">
-                    <Clock className="w-3 h-3" /> LIMITED TIME
+                    <Clock className="w-3 h-3" /> {t("limited_time")}
                   </div>
                 </div>
                 <h3 className="text-xl md:text-2xl font-bold text-foreground leading-tight">
-                  Exclusive Deal:
+                  <span className="block text-base md:text-lg">{t("sale_offer_heading")}</span>
                   <span className="block mt-1 text-base md:text-lg text-muted-foreground line-through">5830€</span>
                   <span className="block text-3xl md:text-4xl text-primary italic">999€</span>
                 </h3>
@@ -131,7 +133,7 @@ const SaleBanner = () => {
                 size="lg" 
                 className="w-full lg:w-auto bg-primary hover:bg-primary/90 text-white font-black text-base px-10 rounded-2xl h-14"
               >
-                CLAIM 999€ OFFER <ArrowRight className="ml-2 w-5 h-5" />
+                {t("sale_button")} <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
               <button 
                 onClick={toggleBanner} 

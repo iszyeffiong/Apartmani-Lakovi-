@@ -1,31 +1,27 @@
 import AnimatedSection from "@/components/AnimatedSection";
+import { useLanguage } from "@/context/LanguageContext";
 import heroImg from "@/assets/hero.jpg";
 import gallery2 from "@/assets/gallery2.jpg";
 
-const About = () => (
+const About = () => {
+  const { t } = useLanguage();
+
+  return (
   <div className="pt-16">
     <section className="section-padding">
       <div className="container-max">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <AnimatedSection>
-            <span className="text-primary font-medium text-sm uppercase tracking-widest">Our Story</span>
-            <h1 className="text-4xl md:text-5xl font-bold mt-2 mb-6 text-foreground">About Apartmani Laković</h1>
+            <span className="text-primary font-medium text-sm uppercase tracking-widest">{t("about_heading")}</span>
+            <h1 className="text-4xl md:text-5xl font-bold mt-2 mb-6 text-foreground">{t("about_title")}</h1>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              For over a decade, the Laković family has welcomed guests from around the world to our
-              beautiful apartments on the Adriatic coast. What started as a small family guesthouse has
-              grown into a collection of modern, stylish apartments - but our commitment to personal,
-              warm hospitality remains unchanged.
+              {t("about_paragraph_1")}
             </p>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              We believe that a great holiday starts with a great place to stay. That's why we've
-              carefully designed each apartment with comfort, style, and functionality in mind.
-              From the premium linens to the fully equipped kitchens, every detail is chosen to make
-              your stay exceptional.
+              {t("about_paragraph_2")}
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Located in the heart of Budva, our apartments offer easy access to beaches, restaurants,
-              historical sites, and the vibrant nightlife. Whether you're here to relax, explore, or
-              celebrate - we're here to ensure you have an unforgettable experience.
+              {t("about_paragraph_3")}
             </p>
           </AnimatedSection>
           <AnimatedSection delay={0.2}>
@@ -38,6 +34,7 @@ const About = () => (
       </div>
     </section>
   </div>
-);
+  );
+};
 
 export default About;

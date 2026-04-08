@@ -1,23 +1,25 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useBooking } from "@/context/BookingContext";
 import { useTheme } from "@/context/ThemeContext";
-
-const navLinks = [
-  { label: "Home", path: "/" },
-  { label: "Rooms", path: "/rooms" },
-  { label: "Gallery", path: "/gallery" },
-  { label: "About", path: "/about" },
-  { label: "Contact", path: "/contact" },
-];
+import { useLanguage } from "@/context/LanguageContext";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const { openBooking } = useBooking();
   const { theme, toggleTheme } = useTheme();
+  const { t, toggleLanguage, lang } = useLanguage();
+
+  const navLinks = [
+    { label: t("nav_home"), path: "/" },
+    { label: t("nav_rooms"), path: "/rooms" },
+    { label: t("nav_gallery"), path: "/gallery" },
+    { label: t("nav_about"), path: "/about" },
+    { label: t("nav_contact"), path: "/contact" },
+  ];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-card">
@@ -46,7 +48,15 @@ const Navbar = () => {
           >
             {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
           </button>
-          <Button size="sm" onClick={() => openBooking()}>Book Now</Button>
+          <button
+            onClick={toggleLanguage}
+            className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+            aria-label="Toggle language"
+          >
+            <Globe size={18} />
+            <span className="sr-only">{lang === "me" ? "Switch to English" : "Prebaci na crnogorski"}</span>
+          </button>
+          <Button size="sm" onClick={() => openBooking()}>{t("nav_book_now")}</Button>
         </div>
 
         {/* Mobile toggle */}
@@ -57,6 +67,13 @@ const Navbar = () => {
             aria-label="Toggle theme"
           >
             {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+          </button>
+          <button
+            onClick={toggleLanguage}
+            className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+            aria-label="Toggle language"
+          >
+            <Globe size={18} />
           </button>
           <button className="text-foreground" onClick={() => setOpen(!open)}>
             {open ? <X size={24} /> : <Menu size={24} />}
@@ -80,7 +97,7 @@ const Navbar = () => {
             </Link>
           ))}
           <Button size="sm" className="w-full mt-2" onClick={() => { setOpen(false); openBooking(); }}>
-            Book Now
+            {t("nav_book_now")}
           </Button>
         </div>
       )}

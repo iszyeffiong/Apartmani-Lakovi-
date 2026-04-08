@@ -1,22 +1,24 @@
 import { Button } from "@/components/ui/button";
 import { useBooking } from "@/context/BookingContext";
 import AnimatedSection from "@/components/AnimatedSection";
+import { useLanguage } from "@/context/LanguageContext";
 
 const CTASection = () => {
   const { openBooking } = useBooking();
+  const { t } = useLanguage();
 
   return (
     <section className="section-padding">
       <AnimatedSection>
         <div className="container-max text-center bg-primary rounded-2xl py-16 px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-            Ready to Book Your Stay?
+            {t("cta_heading")}
           </h2>
           <p className="text-primary-foreground/80 mb-8 max-w-lg mx-auto">
-            Don't miss out on the perfect Adriatic getaway. Check availability and reserve your apartment today.
+            {t("cta_text")}
           </p>
           <Button size="lg" variant="secondary" className="text-base" onClick={() => openBooking()}>
-            Book Your Stay Now
+            {t("cta_button")}
           </Button>
         </div>
       </AnimatedSection>

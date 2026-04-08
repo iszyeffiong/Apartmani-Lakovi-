@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { BookingProvider } from "@/context/BookingContext";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { LanguageProvider } from "@/context/LanguageContext";
 import Navbar from "@/components/Navbar";
 import ScrollToTop from "@/components/ScrollToTop";
 import Footer from "@/components/Footer";
@@ -25,11 +26,12 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <ThemeProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <BookingProvider>
-            <ScrollToTop />
+        <LanguageProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <BookingProvider>
+              <ScrollToTop />
             <Navbar />
             <BookingModal />
             <main>
@@ -48,6 +50,7 @@ const App = () => (
             <SaleBanner />
           </BookingProvider>
         </BrowserRouter>
+        </LanguageProvider>
       </ThemeProvider>
     </TooltipProvider>
   </QueryClientProvider>

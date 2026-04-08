@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useBooking } from "@/context/BookingContext";
+import { useLanguage } from "@/context/LanguageContext";
 import heroImg from "@/assets/hero.jpg";
 
 const HeroSection = () => {
   const { openBooking } = useBooking();
+  const { t } = useLanguage();
 
   return (
     <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
@@ -21,14 +23,14 @@ const HeroSection = () => {
           Apartmani Laković
         </h1>
         <p className="text-lg sm:text-xl text-white/90 mb-8 font-sans font-light">
-          Your peaceful retreat on the Adriatic coast. Experience comfort, beauty, and unforgettable hospitality.
+          {t("hero_subtitle")}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button size="lg" className="text-base font-medium" onClick={() => openBooking()}>
-            Book Now
+            {t("hero_book_now")}
           </Button>
           <Button asChild size="lg" className="text-base font-medium bg-black text-white hover:bg-black/80 transition-all duration-300">
-            <Link to="/rooms">View Rooms</Link>
+            <Link to="/rooms">{t("hero_view_rooms")}</Link>
           </Button>
         </div>
       </div>

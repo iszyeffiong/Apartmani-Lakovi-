@@ -3,13 +3,15 @@ import { Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AnimatedSection from "@/components/AnimatedSection";
 import { toast } from "sonner";
+import { useLanguage } from "@/context/LanguageContext";
 
 const Contact = () => {
+  const { t } = useLanguage();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent! We'll get back to you shortly.");
+    toast.success(t("message_sent"));
     setForm({ name: "", email: "", message: "" });
   };
 
@@ -18,9 +20,9 @@ const Contact = () => {
       <section className="section-padding">
         <div className="container-max">
           <AnimatedSection className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground">Contact Us</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground">{t("contact_title")}</h1>
             <p className="text-muted-foreground mt-3 max-w-xl mx-auto">
-              Have questions or ready to book? We'd love to hear from you.
+              {t("contact_subtitle")}
             </p>
           </AnimatedSection>
 
@@ -28,39 +30,39 @@ const Contact = () => {
             <AnimatedSection>
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">Name</label>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">{t("contact_name")}</label>
                   <input
                     type="text"
                     required
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     className="w-full px-4 py-2.5 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                    placeholder="Your full name"
+                    placeholder={t("contact_name_placeholder")}
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">{t("contact_email")}</label>
                   <input
                     type="email"
                     required
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     className="w-full px-4 py-2.5 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                    placeholder="you@example.com"
+                    placeholder={t("contact_email_placeholder")}
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">Message</label>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">{t("contact_message")}</label>
                   <textarea
                     required
                     rows={5}
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     className="w-full px-4 py-2.5 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
-                    placeholder="Tell us about your stay plans..."
+                    placeholder={t("contact_message_placeholder")}
                   />
                 </div>
-                <Button type="submit" size="lg" className="w-full">Send Message</Button>
+                <Button type="submit" size="lg" className="w-full">{t("send_message")}</Button>
               </form>
             </AnimatedSection>
 
@@ -69,22 +71,22 @@ const Contact = () => {
                 <div className="flex items-start gap-4">
                   <Phone size={20} className="text-primary mt-1" />
                   <div>
-                    <h3 className="font-semibold text-foreground">Phone</h3>
+                    <h3 className="font-semibold text-foreground">{t("phone_label")}</h3>
                     <a href="tel:+38267446479" className="text-sm text-muted-foreground hover:text-primary transition-colors">+382 67 446 479</a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <Mail size={20} className="text-primary mt-1" />
                   <div>
-                    <h3 className="font-semibold text-foreground">Email</h3>
+                    <h3 className="font-semibold text-foreground">{t("email_label")}</h3>
                     <a href="mailto:apartmani.lakovic@gmail.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">apartmani.lakovic@gmail.com</a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <MapPin size={20} className="text-primary mt-1" />
                   <div>
-                    <h3 className="font-semibold text-foreground">Address</h3>
-                    <p className="text-sm text-muted-foreground">Obala bb, 85310 Budva, Montenegro</p>
+                    <h3 className="font-semibold text-foreground">{t("address_label")}</h3>
+                    <p className="text-sm text-muted-foreground">{t("address_value")}</p>
                   </div>
                 </div>
               </div>

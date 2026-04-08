@@ -1,23 +1,23 @@
 import AnimatedSection from "@/components/AnimatedSection";
+import { useLanguage } from "@/context/LanguageContext";
 import gallery2 from "@/assets/gallery2.jpg";
 
-const AboutSection = () => (
+const AboutSection = () => {
+  const { t } = useLanguage();
+
+  return (
   <section className="section-padding">
     <div className="container-max grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       <AnimatedSection>
-        <span className="text-primary font-medium text-sm uppercase tracking-widest">Welcome</span>
+        <span className="text-primary font-medium text-sm uppercase tracking-widest">{t("home_welcome")}</span>
         <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-6 text-foreground">
-          Your Home Away From Home
+          {t("home_title")}
         </h2>
         <p className="text-muted-foreground leading-relaxed mb-4">
-          Nestled along the stunning Adriatic coastline, Apartmani Laković offers a collection of
-          beautifully appointed apartments designed for comfort and relaxation. Whether you're
-          seeking a romantic escape or a family adventure, our apartments provide the perfect base
-          to explore the region.
+          {t("home_paragraph_1")}
         </p>
         <p className="text-muted-foreground leading-relaxed">
-          With personalized service, modern amenities, and breathtaking sea views, we ensure every
-          guest feels at home from the moment they arrive.
+          {t("home_paragraph_2")}
         </p>
       </AnimatedSection>
       <AnimatedSection delay={0.2}>
@@ -32,6 +32,7 @@ const AboutSection = () => (
       </AnimatedSection>
     </div>
   </section>
-);
+  );
+};
 
 export default AboutSection;

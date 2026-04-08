@@ -2,14 +2,18 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { rooms } from "@/data/rooms";
 import AnimatedSection from "@/components/AnimatedSection";
+import { useLanguage } from "@/context/LanguageContext";
 
-const FeaturedRooms = () => (
-  <section className="section-padding bg-muted/50">
-    <div className="container-max">
-      <AnimatedSection className="text-center mb-12">
-        <span className="text-primary font-medium text-sm uppercase tracking-widest">Accommodation</span>
-        <h2 className="text-3xl md:text-4xl font-bold mt-2 text-foreground">Our Rooms & Apartments</h2>
-      </AnimatedSection>
+const FeaturedRooms = () => {
+  const { t } = useLanguage();
+
+  return (
+    <section className="section-padding bg-muted/50">
+      <div className="container-max">
+        <AnimatedSection className="text-center mb-12">
+          <span className="text-primary font-medium text-sm uppercase tracking-widest">{t("more_about")}</span>
+          <h2 className="text-3xl md:text-4xl font-bold mt-2 text-foreground">{t("rooms_page_title")}</h2>
+        </AnimatedSection>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {rooms.slice(0, 8).map((room, i) => (
@@ -27,16 +31,16 @@ const FeaturedRooms = () => (
                   />
                   <div className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/90 text-white text-xs font-medium">
                     <span className="h-2 w-2 rounded-full bg-white"></span>
-                    {room.available} available
+                    {room.available} {t("room_available")}
                   </div>
                 </div>
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="text-lg font-semibold text-foreground">{room.name}</h3>
-                    <span className="text-primary font-bold">€{room.price}<span className="text-xs text-muted-foreground font-normal">/night</span></span>
+                    <span className="text-primary font-bold">€{room.price}<span className="text-xs text-muted-foreground font-normal">{t("per_night")}</span></span>
                   </div>
                   <p className="text-sm text-muted-foreground mb-4">{room.description}</p>
-                  <Button variant="outline" size="sm">View Details</Button>
+                  <Button variant="outline" size="sm">{t("details")}</Button>
                 </div>
               </div>
             </Link>
@@ -46,11 +50,12 @@ const FeaturedRooms = () => (
 
       <AnimatedSection className="text-center mt-12" delay={0.3}>
         <Button asChild size="lg" variant="outline" className="px-8 shadow-sm hover:shadow-md transition-all">
-          <Link to="/rooms">View All Rooms & Apartments</Link>
+          <Link to="/rooms">{t("gallery_view_full")}</Link>
         </Button>
       </AnimatedSection>
     </div>
   </section>
-);
+  );
+};
 
 export default FeaturedRooms;

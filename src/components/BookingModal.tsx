@@ -9,10 +9,12 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { rooms } from "@/data/rooms";
 import { useBooking } from "@/context/BookingContext";
+import { useLanguage } from "@/context/LanguageContext";
 import { toast } from "sonner";
 
 const BookingModal = () => {
   const { isOpen, preselectedRoom, closeBooking } = useBooking();
+  const { t } = useLanguage();
   const [selectedRoom, setSelectedRoom] = useState("");
   const [checkIn, setCheckIn] = useState<Date | undefined>();
   const [checkOut, setCheckOut] = useState<Date | undefined>();
@@ -41,7 +43,7 @@ const BookingModal = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Booking request submitted! We'll confirm your reservation shortly.");
+    toast.success(t("booking_modal_confirm_booking"));
     closeBooking();
     setSelectedRoom("");
     setCheckIn(undefined);
@@ -75,7 +77,7 @@ const BookingModal = () => {
           >
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
-              <h2 className="font-serif text-2xl font-bold text-foreground">Book Your Stay</h2>
+              <h2 className="font-serif text-2xl font-bold text-foreground">{t("booking_modal_title")}</h2>
               <button
                 onClick={closeBooking}
                 className="p-1.5 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
@@ -88,14 +90,14 @@ const BookingModal = () => {
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Room Selection */}
               <div>
-                <label className="text-sm font-medium text-foreground mb-2 block">Select Room</label>
+                <label className="text-sm font-medium text-foreground mb-2 block">{t("booking_modal_select_room")}</label>
                 <select
                   required
                   value={selectedRoom}
                   onChange={(e) => setSelectedRoom(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring appearance-none"
                 >
-                  <option value="">Choose a room...</option>
+                  <option value="">{t("booking_modal_choose_room")}</option>
                   {rooms.map((room) => (
                     <option key={room.id} value={room.id}>
                       {room.name} - €{room.price}/night
@@ -104,14 +106,14 @@ const BookingModal = () => {
                 </select>
                 {selectedRoomData && (
                   <p className="text-xs text-muted-foreground mt-1.5">
-                    Up to {selectedRoomData.guests} guests · {selectedRoomData.size} m² · {selectedRoomData.available} available
+                    {t("room_details_guests").replace("{count}", selectedRoomData.guests.toString())} · {selectedRoomData.size} m² · {selectedRoomData.available} {t("room_available")}
                   </p>
                 )}
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">Check-in</label>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">{t("booking_modal_checkin")}</label>
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
@@ -122,7 +124,7 @@ const BookingModal = () => {
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        {checkIn ? format(checkIn, "PPP") : <span>Pick date</span>}
+                        {checkIn ? format(checkIn, "PPP") : <span>{t("booking_modal_pick_date")}</span>}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
@@ -138,7 +140,7 @@ const BookingModal = () => {
                   </Popover>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">Check-out</label>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">{t("booking_modal_checkout")}</label>
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
@@ -149,7 +151,7 @@ const BookingModal = () => {
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        {checkOut ? format(checkOut, "PPP") : <span>Pick date</span>}
+                        {checkOut ? format(checkOut, "PPP") : <span>{t("booking_modal_pick_date")}</span>}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
@@ -168,7 +170,7 @@ const BookingModal = () => {
 
               {/* Guests */}
               <div>
-                <label className="text-sm font-medium text-foreground mb-1.5 block">Guests</label>
+                <label className="text-sm font-medium text-foreground mb-1.5 block">{t("booking_modal_guests")}</label>
                 <div className="relative">
                   <Users size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                   <select
@@ -177,7 +179,7 @@ const BookingModal = () => {
                     className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring appearance-none"
                   >
                     {[1, 2, 3, 4, 5, 6].map((n) => (
-                      <option key={n} value={n}>{n} Guest{n > 1 ? "s" : ""}</option>
+                      <option key={n} value={n}>{n} {t("booking_modal_guests")}</option>
                     ))}
                   </select>
                 </div>
@@ -186,24 +188,24 @@ const BookingModal = () => {
               {/* Guest Info */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">Full Name</label>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">{t("booking_modal_full_name")}</label>
                   <input
                     type="text"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="John Doe"
+                    placeholder={t("booking_modal_full_name")}
                     className="w-full px-4 py-2.5 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-all"
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">{t("booking_modal_email")}</label>
                   <input
                     type="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@example.com"
+                    placeholder={t("contact_email_placeholder")}
                     className="w-full px-4 py-2.5 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-all"
                   />
                 </div>
@@ -212,21 +214,21 @@ const BookingModal = () => {
               {/* Payment Option */}
               <div>
                 <label className="text-sm font-medium text-foreground mb-3 block flex items-center gap-1.5">
-                  <CreditCard size={15} /> Payment Method
+                  <CreditCard size={15} /> {t("booking_modal_payment_method")}
                 </label>
                 <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod} className="space-y-2.5">
                   <label className="flex items-center gap-3 p-3 rounded-lg border border-input hover:border-primary/40 transition-colors cursor-pointer">
                     <RadioGroupItem value="arrival" id="pay-arrival" />
                     <div>
-                      <span className="text-sm font-medium text-foreground">Pay on Arrival</span>
-                      <p className="text-xs text-muted-foreground">Pay when you check in - no upfront charge</p>
+                      <span className="text-sm font-medium text-foreground">{t("booking_modal_pay_arrival")}</span>
+                      <p className="text-xs text-muted-foreground">{t("booking_modal_pay_arrival_desc")}</p>
                     </div>
                   </label>
                   <label className="flex items-center gap-3 p-3 rounded-lg border border-input hover:border-primary/40 transition-colors cursor-pointer">
                     <RadioGroupItem value="now" id="pay-now" />
                     <div>
-                      <span className="text-sm font-medium text-foreground">Pay Now</span>
-                      <p className="text-xs text-muted-foreground">Secure your booking with immediate payment</p>
+                      <span className="text-sm font-medium text-foreground">{t("booking_modal_pay_now")}</span>
+                      <p className="text-xs text-muted-foreground">{t("booking_modal_pay_now_desc")}</p>
                     </div>
                   </label>
                 </RadioGroup>
@@ -237,7 +239,7 @@ const BookingModal = () => {
                 <div className="space-y-3 p-4 rounded-lg border border-primary/20 bg-primary/5">
                   <div className="flex items-center gap-2 mb-1">
                     <Lock size={14} className="text-primary" />
-                    <span className="text-sm font-medium text-foreground">Secure Payment</span>
+                    <span className="text-sm font-medium text-foreground">{t("booking_modal_secure_payment")}</span>
                     <div className="ml-auto flex items-center gap-1.5">
                       <span className="text-[10px] font-semibold bg-[#635BFF] text-white px-1.5 py-0.5 rounded">stripe</span>
                       <span className="text-[10px] font-semibold bg-[#EB001B] text-white px-1.5 py-0.5 rounded">mc</span>
@@ -245,7 +247,7 @@ const BookingModal = () => {
                     </div>
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-foreground mb-1 block">Card Number</label>
+                    <label className="text-xs font-medium text-foreground mb-1 block">{t("booking_modal_card_number")}</label>
                     <input
                       type="text"
                       placeholder="4242 4242 4242 4242"
@@ -255,7 +257,7 @@ const BookingModal = () => {
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="text-xs font-medium text-foreground mb-1 block">Expiry</label>
+                      <label className="text-xs font-medium text-foreground mb-1 block">{t("booking_modal_expiry")}</label>
                       <input
                         type="text"
                         placeholder="MM / YY"
@@ -264,7 +266,7 @@ const BookingModal = () => {
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-medium text-foreground mb-1 block">CVC</label>
+                      <label className="text-xs font-medium text-foreground mb-1 block">{t("booking_modal_cvc")}</label>
                       <input
                         type="text"
                         placeholder="123"
@@ -274,16 +276,16 @@ const BookingModal = () => {
                     </div>
                   </div>
                   <p className="text-[11px] text-muted-foreground flex items-center gap-1">
-                    <Lock size={10} /> Your payment info is encrypted and secure
+                    <Lock size={10} /> {t("booking_modal_payment_secure")}
                   </p>
                 </div>
               )}
 
               <Button type="submit" size="lg" className="w-full text-base">
-                {paymentMethod === "now" ? "Pay & Confirm Booking" : "Confirm Booking"}
+                {paymentMethod === "now" ? t("booking_modal_pay_confirm") : t("booking_modal_confirm_booking")}
               </Button>
               <p className="text-xs text-muted-foreground text-center">
-                Free cancellation up to 48 hours before check-in
+                {t("booking_modal_free_cancellation")}
               </p>
             </form>
           </motion.div>

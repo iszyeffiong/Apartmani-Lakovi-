@@ -1,11 +1,15 @@
 import AnimatedSection from "@/components/AnimatedSection";
+import { useLanguage } from "@/context/LanguageContext";
 
-const LocationSection = () => (
+const LocationSection = () => {
+  const { t } = useLanguage();
+
+  return (
   <section className="section-padding">
     <div className="container-max">
       <AnimatedSection className="text-center mb-12">
-        <span className="text-primary font-medium text-sm uppercase tracking-widest">Location</span>
-        <h2 className="text-3xl md:text-4xl font-bold mt-2 text-foreground">Find Us</h2>
+        <span className="text-primary font-medium text-sm uppercase tracking-widest">{t("location_title")}</span>
+        <h2 className="text-3xl md:text-4xl font-bold mt-2 text-foreground">{t("location_subtitle")}</h2>
         <p className="text-muted-foreground mt-3 max-w-xl mx-auto">
           Located in the heart of Budva, just minutes from the Old Town and beautiful beaches.
           Restaurants, shops, and attractions are all within walking distance.
@@ -26,6 +30,7 @@ const LocationSection = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default LocationSection;

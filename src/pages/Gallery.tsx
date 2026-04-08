@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AnimatedSection from "@/components/AnimatedSection";
 import Lightbox from "@/components/Lightbox";
+import { useLanguage } from "@/context/LanguageContext";
 import gallery1 from "@/assets/gallery1.jpg";
 import gallery2 from "@/assets/gallery2.jpg";
 import gallery3 from "@/assets/gallery3.jpg";
@@ -22,6 +23,7 @@ const images = [
 ];
 
 const Gallery = () => {
+  const { t } = useLanguage();
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   return (
@@ -29,8 +31,8 @@ const Gallery = () => {
       <section className="section-padding">
         <div className="container-max">
           <AnimatedSection className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground">Gallery</h1>
-            <p className="text-muted-foreground mt-3">Explore our apartments and surroundings</p>
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground">{t("gallery_title")}</h1>
+            <p className="text-muted-foreground mt-3">{t("gallery_subtitle")}</p>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

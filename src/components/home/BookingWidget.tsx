@@ -7,8 +7,10 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useBooking } from "@/context/BookingContext";
 import AnimatedSection from "@/components/AnimatedSection";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/context/LanguageContext";
 
 const BookingWidget = () => {
+  const { t } = useLanguage();
   const [checkIn, setCheckIn] = useState<Date | undefined>();
   const [checkOut, setCheckOut] = useState<Date | undefined>();
   const [guests, setGuests] = useState("2");
@@ -20,7 +22,7 @@ const BookingWidget = () => {
         <div className="glass-card rounded-xl p-6 md:p-8 -mt-20 relative z-20">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
             <div>
-              <label className="text-sm font-medium text-muted-foreground mb-2 block">Check-in</label>
+              <label className="text-sm font-medium text-muted-foreground mb-2 block">{t("booking_modal_checkin")}</label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
@@ -31,7 +33,7 @@ const BookingWidget = () => {
                     )}
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {checkIn ? format(checkIn, "MMM dd, yyyy") : <span>Pick date</span>}
+                    {checkIn ? format(checkIn, "MMM dd, yyyy") : <span>{t("booking_modal_pick_date")}</span>}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
@@ -47,7 +49,7 @@ const BookingWidget = () => {
               </Popover>
             </div>
             <div>
-              <label className="text-sm font-medium text-muted-foreground mb-2 block">Check-out</label>
+              <label className="text-sm font-medium text-muted-foreground mb-2 block">{t("booking_modal_checkout")}</label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
@@ -58,7 +60,7 @@ const BookingWidget = () => {
                     )}
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {checkOut ? format(checkOut, "MMM dd, yyyy") : <span>Pick date</span>}
+                    {checkOut ? format(checkOut, "MMM dd, yyyy") : <span>{t("booking_modal_pick_date")}</span>}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
@@ -74,7 +76,7 @@ const BookingWidget = () => {
               </Popover>
             </div>
             <div>
-              <label className="text-sm font-medium text-muted-foreground mb-2 block">Guests</label>
+              <label className="text-sm font-medium text-muted-foreground mb-2 block">{t("booking_modal_guests")}</label>
               <div className="relative">
                 <Users size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                 <select
@@ -89,7 +91,7 @@ const BookingWidget = () => {
               </div>
             </div>
             <Button size="lg" className="w-full" onClick={() => openBooking()}>
-              Check Availability
+              {t("booking_widget_check_availability")}
             </Button>
           </div>
         </div>

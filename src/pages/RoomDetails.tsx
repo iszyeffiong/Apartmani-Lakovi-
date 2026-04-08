@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Users, Maximize, Check, ArrowLeft } from "lucide-react";
 import { useBooking } from "@/context/BookingContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 const RoomDetails = () => {
+  const { t } = useLanguage();
   const { id } = useParams();
   const room = rooms.find((r) => r.id === id);
   const { openBooking } = useBooking();
@@ -17,7 +19,7 @@ const RoomDetails = () => {
       <section className="section-padding">
         <div className="container-max">
           <Link to="/rooms" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-6 transition-colors">
-            <ArrowLeft size={16} /> Back to Rooms
+            <ArrowLeft size={16} /> {t("room_details_back")}
           </Link>
 
           <AnimatedSection>
@@ -40,7 +42,7 @@ const RoomDetails = () => {
             <AnimatedSection className="lg:col-span-2">
               <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{room.name}</h1>
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-sm text-muted-foreground mb-6">
-                <span className="flex items-center gap-1"><Users size={16} /> Up to {room.guests} guests</span>
+                <span className="flex items-center gap-1"><Users size={16} /> {t("room_details_guests").replace("{count}", room.guests.toString())}</span>
                 <span className="flex items-center gap-1"><Maximize size={16} /> {room.size} m²</span>
                 <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary font-medium">
                   <span className="h-2 w-2 rounded-full bg-primary"></span>
@@ -49,7 +51,7 @@ const RoomDetails = () => {
               </div>
               <p className="text-muted-foreground leading-relaxed mb-8">{room.longDescription}</p>
 
-              <h3 className="font-serif text-xl font-semibold text-foreground mb-4">Amenities</h3>
+              <h3 className="font-serif text-xl font-semibold text-foreground mb-4">{t("room_details_amenities")}</h3>
               <div className="grid grid-cols-2 gap-3">
                 {room.features.map((f) => (
                   <div key={f} className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -63,13 +65,13 @@ const RoomDetails = () => {
               <div className="glass-card rounded-xl p-6 sticky top-24">
                 <div className="text-center mb-6">
                   <span className="text-3xl font-bold text-primary">€{room.price}</span>
-                  <span className="text-muted-foreground text-sm"> / night</span>
+                  <span className="text-muted-foreground text-sm"> {t("per_night")}</span>
                 </div>
                 <Button className="w-full" size="lg" onClick={() => openBooking(room.id)}>
-                  Book This Room
+                  {t("book_this_room")}
                 </Button>
                 <p className="text-xs text-muted-foreground text-center mt-3">
-                  Free cancellation up to 48 hours before check-in
+                  {t("room_details_cancellation")}
                 </p>
               </div>
             </AnimatedSection>
