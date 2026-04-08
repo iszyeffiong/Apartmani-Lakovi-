@@ -17,10 +17,10 @@ const HeroSection = () => {
       />
       <div className="absolute inset-0 bg-black/60" />
       <div className="relative z-10 text-center px-4 max-w-3xl">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-background mb-4 leading-tight">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 leading-tight">
           Apartmani Laković
         </h1>
-        <p className="text-lg sm:text-xl text-background/85 mb-8 font-sans font-light">
+        <p className="text-lg sm:text-xl text-white/90 mb-8 font-sans font-light">
           Your peaceful retreat on the Adriatic coast. Experience comfort, beauty, and unforgettable hospitality.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
